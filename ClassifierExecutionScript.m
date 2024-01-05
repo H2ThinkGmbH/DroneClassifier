@@ -2,6 +2,14 @@
 % during the the development of the classifier. Some of them turned out to be
 % dead ends and can be ignored. The relevant results are marked in the form of
 % marked in the form of comments.
+% 
+% Please note, that most of the scripts are not stored in the repository. 
+% As they are very similar to each other and generally differ mainly in the 
+% parameters for augmentation, only the in the parameters for the augmentation, 
+% only the script classifier_3p94 was included in the repository. This classifier
+% classifies audio data in one of the four drone classes. Additionally,
+% the script classifier_5p09 is added. This classifier classifies audio sounds
+% in 'drone' and 'no drone'
 
 % First tests for development
 classifier_3p01;
@@ -188,7 +196,7 @@ classifier_3p90; % 27 ms / 90 %
 classifier_3p91;
 classifier_3p92;
 classifier_3p93;
-classifier_3p94;
+classifier_3p94; % This example can be found in the repository
 classifier_3p95;
 classifier_3p96;
 classifier_3p97;

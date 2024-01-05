@@ -6,6 +6,17 @@ function [features, labels] = prepareData(ads, dataCount, ...
                                           augmentTechniques, ...
                                           augmentParams)
 
+% prepareData creates a query of features an labels, which can be used
+% as an input for the training process
+%
+% ads			- Contains the audio data set
+% dataCount		- Contains the amount of audio files in the data set
+% f_hp, f_lp		- Cutt-off frequencies for the low and the high pass
+% filename		- Filename for saving the prepared data (if data have
+%			  already been processed and saved, the will be loaded)
+% augmentTechniques	- Contains the augmentation techniques, which will be applied
+% augmentParams		- Contains the input parameters for the augmentation functions
+
 features = []; labels = [];
 if exist(filename, 'file') == 0
     wb = waitbar(0); cnt = 0;
@@ -25,9 +36,8 @@ if exist(filename, 'file') == 0
 
         audioIn = normalizeAudioInput(audioIn, 0.9);
     
-        % Schneide Daten, bei denen es sich höchstwahrscheinlich um keine
-        % Drohnengeräusche handelt (zB vor dem Start oder nach der Landung)
-        % heraus
+        % Cut data that is most likely to be no drone noise 
+	% (e.g. before take-off or after landing) out
         if ~isequal(fileInfo.Label, 'no drone')
             [audioIn, isDrone] = preClassification(audioIn, Fs, fileInfo.FileName);
         end
@@ -54,9 +64,6 @@ if exist(filename, 'file') == 0
     save(filename, 'features', 'labels');
 else
     load(filename, 'features', 'labels');
-    % Vor der Umstellung der Datenvorbereitung über eine Funktion anstelle
-    % eines Skriptes hießen die gespeicherten Daten trainFeatures und
-    % trainLabels bzw. validationFeatures und validationLabels
     if isempty(features) == 1
         load(filename, 'trainFeatures', 'trainLabels');
         features = trainFeatures;
